@@ -4,7 +4,7 @@
 git checkout feature/<yours>
 git pull origin main # bring in what has been merged
 # ...work...
-# if you want to switch branchs
+# if you want to switch branches
 git switch <branch>
 
 make  # must compile before you push
