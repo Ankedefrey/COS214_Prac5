@@ -21,8 +21,8 @@ git push origin feature/<yours>
 |--------|----------|-------|
 | `feature/core-interfaces` | Abstract bases and shared types (Incident, zones, response-unit and mediator interfaces, enums). Merged **first** to freeze the skeleton. | TBC |
 | `feature/adapter` | Legacy system + adapter | TBC |
-| `feature/state` | | TBC |
-| `feature/composite` | | TBC |
+| `feature/state` | IncidentState abstract base and the Reported, Active, Contained and Resolved states. Incident delegates status-dependent operations to its current state. | TBC |
+| `feature/composite` | CampusZone abstract base, a composite zone class (building/floor) and a leaf class (room). Lock, unlock and restrict recurse through the tree. | TBC |
 | `feature/mediator` | Coordinator + concrete response teams | TBC |
 | `feature/command` | Commands + operator console (invoker, history, undo) | TBC |
 | `feature/facade` | Emergency workflows | TBC |
