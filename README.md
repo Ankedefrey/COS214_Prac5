@@ -48,5 +48,5 @@ docker compose run --rm gdb        # interactive GDB session
 | Mediator | Response components coordinate through the incident coordinator |
 | Adapter | Legacy campus system integrated behind CampusGuard's interface |
 | Facade | One-call emergency workflows over several subsystems |
-| State | Team-selected pattern 1 |
-| Composite | Team-selected pattern 2 |
+| State | Each incident's lifecycle (Reported → Active → Contained → Resolved). Each state decides which operations are allowed, e.g. dispatching to a resolved incident is rejected. |
+| Composite | Campus layout as a tree (Campus → Building → Floor → Room). Locking, unlocking or restricting any zone recurses to every room, and each room goes through the door adapter. |
