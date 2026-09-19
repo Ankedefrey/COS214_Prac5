@@ -1,0 +1,23 @@
+dockerservices:
+  campusguard:
+    build: .
+    image: campusguard:latest
+    container_name: campusguard
+    stdin_open: true
+    tty: true
+
+#Run with: docker compose run --rm valgrind
+  valgrind:
+    image: campusguard:latest
+    profiles: ["debug"]
+    command: ["make", "valgrind"]
+
+  #Run with: docker compose run --rm gdb
+  gdb:
+    image: campusguard:latest
+    profiles: ["debug"]
+    stdin_open: true
+    tty: true
+    cap_add: ["SYS_PTRACE"]
+    security_opt: ["seccomp:unconfined"]
+    command: ["gdb", "./campusguard"]
