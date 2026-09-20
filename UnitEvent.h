@@ -1,0 +1,11 @@
+#ifndef UNITEVENT_H
+#define UNITEVENT_H
+
+enum UnitEvent {
+	ON_SCENE,
+	THREAT_CONFIRMED,
+	HAZARD_CONTAINED,
+	FALSE_ALARM
+};
+
+#endif
