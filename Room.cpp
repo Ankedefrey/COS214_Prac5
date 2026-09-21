@@ -14,6 +14,7 @@ void Room::lock() {
 void Room::unlock() {
 	this->locked = false;
 	this->restricted = false;
+	cout << "[Zone] " << this->name << " unlocked" << endl;
 }
 
 void Room::restrict() {
