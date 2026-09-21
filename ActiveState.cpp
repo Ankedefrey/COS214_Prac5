@@ -1,15 +1,14 @@
 #include "ActiveState.h"
 #include "Incident.h"
 #include "ContainedState.h"
+#include "ResponseUnit.h"
 #include <iostream>
 
 // Active: dispatchUnit allowed (extra units); contain -> ContainedState; resolve is invalid
 
 bool ActiveState::dispatchUnit(Incident* incident) {
 	std::cout << "Unit dispatched" << std::endl;
-	//Dispatch Unit
-	incident->contain();
-	throw "Not yet implemented";
+	return true;
 }
 
 bool ActiveState::contain(Incident* incident) {
