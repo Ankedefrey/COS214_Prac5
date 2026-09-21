@@ -1,32 +1,37 @@
 #include "Incident.h"
 #include "IncidentState.h"
 #include "ReportedState.h"
+#include "ResolvedState.h"
+#include "ActiveState.h"
+#include "ContainedState.h"
+
 #include <iostream>
 
-Incident::Incident(int id, string type, string location) {
-	throw "Not yet implemented";
+Incident::Incident(int id, string type, string location): 
+incidentID(id), location(location), type(type) {
 }
 
 bool Incident::dispatchUnit() {
-	throw "Not yet implemented";
+	state->dispatchUnit(this);
 }
 
 bool Incident::contain() {
-	throw "Not yet implemented";
+	state->contain(this);
 }
 
 bool Incident::resolve() {
-	throw "Not yet implemented";
+	state->resolve(this);
 }
 
 void Incident::setState(IncidentState* s) {
 	// NOTE: the old state object must be deleted here, which is why
 	// setState() must be the LAST statement in a state's method.
+	if(state){ delete state;}
 	this->state = s;
 }
 
 string Incident::getStatus() {
-	throw "Not yet implemented";
+	return state->getName();
 }
 
 string Incident::getLocation() {
@@ -34,4 +39,6 @@ string Incident::getLocation() {
 }
 
 Incident::~Incident() {
+	delete state;
+	state = nullptr;
 }
