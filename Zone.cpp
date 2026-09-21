@@ -1,6 +1,8 @@
 #include "Zone.h"
 #include <iostream>
 
+using namespace std;
+
 Zone::Zone(string name) : AreaComponent(name) {
 
 }
@@ -10,7 +12,7 @@ void Zone::add(AreaComponent* child) {
 }
 
 void Zone::lock() {
-	cout << "[Zone] locking" <<endl;
+	cout << "[Zone] Locking " << this->name << endl;
 
 	vector<AreaComponent*>::iterator it;
 	for (it = this->children.begin(); it != this->children.end(); ++it) {
@@ -19,7 +21,7 @@ void Zone::lock() {
 }
 
 void Zone::unlock() {
-	cout << "[Zone] unlocked" << endl;
+	cout << "[Zone] Unlocking" << this->name<< endl;
 
 	vector<AreaComponent*>::iterator it;
 	for (it = this->children.begin(); it != this->children.end(); ++it) {
@@ -29,7 +31,7 @@ void Zone::unlock() {
 }
 
 void Zone::restrict() {
-	cout << "[Zone] restricted" << endl;
+	cout << "[Zone] Restricting" << this->name << endl;
 	vector<AreaComponent*>::iterator it;
 	for (it = this->children.begin(); it != this->children.end(); ++it) {
 		(*it)->restrict();
