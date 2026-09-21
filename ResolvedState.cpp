@@ -9,7 +9,10 @@ bool ResolvedState::dispatchUnit(Incident* incident) {
 	return false;
 }
 
-
+bool ResolvedState::contain(Incident* incident) {
+	std::cout << "Incident is resolved, no need for containment" << std::endl;
+	return false;
+}
 
 bool ResolvedState::resolve(Incident* incident) {
 	std::cout << "Incident is resolved" << std::endl;
