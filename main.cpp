@@ -51,6 +51,18 @@ int main() {
 	SirenControlAdapter* sirens = buildSirens();
 	NotificationService* notifier = sirens;
 
+    //coordinator, units, registerUnit
+	//console
+	//facade
+
+	// ---------- Scenario 1: Chemical spill ----------
+	// TODO once Facade + Mediator exist
+
+	// ---------- Scenario 2: IT Building threat ----------
+	// TODO once Command + Mediator exist
+
+	// TODO: delete facade, console, coordinator, units first
+
     delete notifier; // virtual destructor -> ~SirenControlAdapter
 	delete campus; // recursively deletes every zone and room
 
