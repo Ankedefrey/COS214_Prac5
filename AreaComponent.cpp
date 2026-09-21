@@ -1,7 +1,7 @@
 #include "AreaComponent.h"
 
 AreaComponent::AreaComponent(string name) {
-	throw "Not yet implemented";
+	this->name = name;
 }
 
 string AreaComponent::getName() {
