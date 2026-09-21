@@ -2,7 +2,9 @@ CXX = g++
 FLAGS = -std=c++11 -Wall -Wextra -g
 EXE = campusguard
 
-SRCS = main.cpp
+SRCS  = main.cpp \
+        AreaComponent.cpp Zone.cpp Room.cpp \
+        NotificationService.cpp SirenControlAdapter.cpp SirenControlUnit.cpp
 
 all:
 	$(CXX) $(CFLAGS) $(SRCS) -o $(EXE)
