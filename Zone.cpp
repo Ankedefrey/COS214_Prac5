@@ -39,6 +39,11 @@ void Zone::restrict() {
 }
 
 AreaComponent* Zone::find(string name) {
+	// gdb 1 fix
+	if (this->name == name) {
+		return this;
+	}
+	
 	vector<AreaComponent*>::iterator it;
 	for (it = this->children.begin(); it != this->children.end(); ++it) {
 		AreaComponent* result = (*it)->find(name);
