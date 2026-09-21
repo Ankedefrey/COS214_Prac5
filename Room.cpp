@@ -2,21 +2,30 @@
 #include <iostream>
 
 Room::Room(string name) : AreaComponent(name) {
-	throw "Not yet implemented";
+	this->locked = false;
+	this->restricted = false;
 }
 
 void Room::lock() {
-	throw "Not yet implemented";
+	this->locked = true;
+	cout << "[Zone] " << this->name << " locked" << endl;
 }
 
 void Room::unlock() {
-	throw "Not yet implemented";
+	this->locked = false;
+	this->restricted = false;
+	cout << "[Zone] " << this->name << " unlocked" << endl;
 }
 
 void Room::restrict() {
-	throw "Not yet implemented";
+	this->restricted = true;
+	cout << "[Zone] " << this->name << " restricted" << endl;
 }
 
 AreaComponent* Room::find(string name) {
-	throw "Not yet implemented";
+	if(this->name == name){
+		return this;
+	}else{
+		return nullptr;
+	}
 }
