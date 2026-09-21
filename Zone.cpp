@@ -2,28 +2,51 @@
 #include <iostream>
 
 Zone::Zone(string name) : AreaComponent(name) {
-	throw "Not yet implemented";
+
 }
 
 void Zone::add(AreaComponent* child) {
-	throw "Not yet implemented";
+	this->children.push_back(child);
 }
 
 void Zone::lock() {
-	throw "Not yet implemented";
+	cout << "[Zone] locking" <<endl;
+
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->lock();
+	}
 }
 
 void Zone::unlock() {
-	throw "Not yet implemented";
+	cout << "[Zone] unlocked" << endl;
+
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->unlock();
+	}
+
 }
 
 void Zone::restrict() {
-	throw "Not yet implemented";
+	cout << "[Zone] restricted" << endl;
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->restrict();
+	}
 }
 
 AreaComponent* Zone::find(string name) {
-	throw "Not yet implemented";
+	if(this->name == name){
+		return this;
+	}else{
+		return nullptr;
+	}
 }
 
 Zone::~Zone() {
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		delete (*it);
+	}
 }
