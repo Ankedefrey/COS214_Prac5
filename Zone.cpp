@@ -37,11 +37,14 @@ void Zone::restrict() {
 }
 
 AreaComponent* Zone::find(string name) {
-	if(this->name == name){
-		return this;
-	}else{
-		return nullptr;
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		AreaComponent* result = (*it)->find(name);
+		if (result != nullptr) {
+			return result;
+		}
 	}
+	return nullptr;
 }
 
 Zone::~Zone() {
