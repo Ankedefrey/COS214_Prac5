@@ -1,29 +1,57 @@
 #include "Zone.h"
 #include <iostream>
 
+using namespace std;
+
 Zone::Zone(string name) : AreaComponent(name) {
-	throw "Not yet implemented";
+
 }
 
 void Zone::add(AreaComponent* child) {
-	throw "Not yet implemented";
+	this->children.push_back(child);
 }
 
 void Zone::lock() {
-	throw "Not yet implemented";
+	cout << "[Zone] Locking " << this->name << endl;
+
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->lock();
+	}
 }
 
 void Zone::unlock() {
-	throw "Not yet implemented";
+	cout << "[Zone] Unlocking" << this->name<< endl;
+
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->unlock();
+	}
+
 }
 
 void Zone::restrict() {
-	throw "Not yet implemented";
+	cout << "[Zone] Restricting" << this->name << endl;
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		(*it)->restrict();
+	}
 }
 
 AreaComponent* Zone::find(string name) {
-	throw "Not yet implemented";
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		AreaComponent* result = (*it)->find(name);
+		if (result != nullptr) {
+			return result;
+		}
+	}
+	return nullptr;
 }
 
 Zone::~Zone() {
+	vector<AreaComponent*>::iterator it;
+	for (it = this->children.begin(); it != this->children.end(); ++it) {
+		delete (*it);
+	}
 }
