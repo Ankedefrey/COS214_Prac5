@@ -1,7 +1,6 @@
 #include "ActiveState.h"
 #include "Incident.h"
 #include "ContainedState.h"
-#include "ResponseUnit.h"
 #include <iostream>
 
 // Active: dispatchUnit allowed (extra units); contain -> ContainedState; resolve is invalid
