@@ -2,14 +2,13 @@
 #include "AreaComponent.h"
 #include <iostream>
 
-LockAreaOnCommand::LockAreaOnCommand(AreaComponent* area) {
-	throw "Not yet implemented";
+LockAreaOnCommand::LockAreaOnCommand(AreaComponent* area): area(area) {
 }
 
 void LockAreaOnCommand::execute() {
-	throw "Not yet implemented";
+	area->lock();
 }
 
 void LockAreaOnCommand::undo() {
-	throw "Not yet implemented";
+	area->unlock();
 }
