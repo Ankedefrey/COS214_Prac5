@@ -13,14 +13,17 @@ incidentID(id), location(location), type(type) {
 
 bool Incident::dispatchUnit() {
 	state->dispatchUnit(this);
+	return true;
 }
 
 bool Incident::contain() {
 	state->contain(this);
+	return true;
 }
 
 bool Incident::resolve() {
 	state->resolve(this);
+	return true;
 }
 
 void Incident::setState(IncidentState* s) {
