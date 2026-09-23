@@ -3,13 +3,20 @@
 #include <iostream>
 
 FacilityStaff::FacilityStaff(string unitID) : ResponseUnit(unitID) {
-	throw "Not yet implemented";
+	
 }
 
 bool FacilityStaff::dispatch(Incident* incident) {
-	throw "Not yet implemented";
+	//check if available
+	if(!this->available){
+		return false; //reporting to another incident
+	}
+	
+	//reporting to this incident
+	this->available = false;
+	return true;
 }
 
 string FacilityStaff::getType() {
-	throw "Not yet implemented";
+	return "FacilityStaff";
 }

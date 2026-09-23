@@ -6,6 +6,7 @@
 class ResponseUnit;
 class Incident;
 
+//abstract class with no memebers so need for clean up
 class IncidentMediator {
 
 public:
