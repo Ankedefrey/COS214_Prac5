@@ -49,5 +49,12 @@ Incident* EmergencyFacade::initiateEvacuationProtocol(string building, string ha
 	Command* alertCmd = new IssueAlertOnCommand(notifier, "EVACUATE: " + hazard + " reported at " + building, building);
 	console->submit(alertCmd); //add to history
 
+	//Emergency evacuation so added Security for initial response to coordinate evacuations/crowd movements
+	ResponseUnit* unit = coordinator->findAvailableUnit("SecurityTeam");
+	if (unit != nullptr) {
+        Command* dispatchCmd = new DispatchUnitOnCommand(unit, incident);
+        console->submit(dispatchCmd);
+    }
+
 	return incident;
 }
