@@ -7,13 +7,16 @@ SecurityTeam::SecurityTeam(string unitID) : ResponseUnit(unitID) {
 }
 
 bool SecurityTeam::dispatch(Incident* incident) {
-	//check if available
-	if(!this->available){
-		return false; //reporting to another incident
+	if (!this->available) {
+		cout << "[Security] " << this->unitID << " is not available" << endl;
+		return false;
 	}
-	
-	//reporting to this incident
+	if (!incident->dispatchUnit()) { // the State decides
+		cout << "[Security] Dispatch refused by incident state" << endl;
+		return false;
+	}
 	this->available = false;
+	cout << "[Security] " << this->unitID << " dispatched to " << incident->getLocation() << endl;
 	return true;
 }
 
