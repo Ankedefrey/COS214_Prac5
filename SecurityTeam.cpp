@@ -11,14 +11,11 @@ bool SecurityTeam::dispatch(Incident* incident) {
 		cout << "[Security] " << this->unitID << " is not available" << endl;
 		return false;
 	}
-	if (!incident->dispatchUnit()) { // the State decides
-		cout << "[Security] Dispatch refused by incident state" << endl;
-		return false;
-	}
 	this->available = false;
 	cout << "[Security] " << this->unitID << " dispatched to " << incident->getLocation() << endl;
 	return true;
 }
+
 
 string SecurityTeam::getType() {
 	return "SecurityTeam";

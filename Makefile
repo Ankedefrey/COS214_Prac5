@@ -13,7 +13,7 @@ SRCS  = main.cpp \
         ResponseUnit.cpp SecurityTeam.cpp MedicalTeam.cpp FacilityStaff.cpp \
         EmergencyFacade.cpp
 all:
-	$(CXX) $(CFLAGS) $(SRCS) -o $(EXE)
+	$(CXX) $(FLAGS) $(SRCS) -o $(EXE)
 
 run: all
 	./$(EXE)
