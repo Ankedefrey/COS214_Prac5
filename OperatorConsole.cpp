@@ -7,10 +7,14 @@ void OperatorConsole::submit(Command* cmd) {
 }
 
 void OperatorConsole::cancelLast() {
-	if(!history.empty()){
-		Command* cmd = history.back();
-		cmd->undo();
+	if(history.empty()){
+		cout << "[Console] Nothing to cancel - no actions in history" << endl;
+		return;
 	}
+	Command* cmd = history.back();
+	history.pop_back();
+	cmd->undo();
+	delete cmd;
 	
 }
 
