@@ -11,7 +11,7 @@ Incident::Incident(int id, string type, string location) {
 	this->incidentID = id;
 	this->type = type;
 	this->location = location;
-	this->state = new ReportedState(); 
+	this->state = new ReportedState();
 }
 
 bool Incident::dispatchUnit() {
