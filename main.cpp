@@ -1,6 +1,15 @@
 #include "Zone.h"
 #include "Room.h"
 #include "SirenControlAdapter.h"
+#include "IncidentCoordinator.h"
+#include "OperatorConsole.h"
+#include "EmergencyFacade.h"
+#include "Incident.h"
+#include "SecurityTeam.h"
+#include "MedicalTeam.h"
+#include "FacilityStaff.h"
+#include "DispatchUnitOnCommand.h"
+#include "IssueAlertOnCommand.h"
 
 #include <iostream>
 
