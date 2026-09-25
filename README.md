@@ -17,8 +17,8 @@ CampusGuard coordinates a campus emergency from the moment an incident is report
 Requires Docker Desktop, with the daemon running.
 
 ```
-git clone <repo-url>
-cd CampusGuard
+git clone https://github.com/Ankedefrey/COS214_Prac5.git
+cd COS214_Prac5
 docker compose up --build
 ```
 

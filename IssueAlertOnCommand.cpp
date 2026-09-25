@@ -2,14 +2,14 @@
 #include "NotificationService.h"
 #include <iostream>
 
-IssueAlertOnCommand::IssueAlertOnCommand(NotificationService* notifier, string message, string areaName) {
-	throw "Not yet implemented";
+IssueAlertOnCommand::IssueAlertOnCommand(NotificationService* notifier, string message, string areaName):
+ notifier(notifier), message(message), areaName(areaName) {
 }
 
 void IssueAlertOnCommand::execute() {
-	throw "Not yet implemented";
+	notifier->sendAlert(message,areaName,true);
 }
 
 void IssueAlertOnCommand::undo() {
-	throw "Not yet implemented";
+	notifier->clearAlert(areaName);
 }

@@ -3,13 +3,20 @@
 #include <iostream>
 
 MedicalTeam::MedicalTeam(string unitID) : ResponseUnit(unitID) {
-	throw "Not yet implemented";
+	
 }
 
 bool MedicalTeam::dispatch(Incident* incident) {
-	throw "Not yet implemented";
+	//check if available
+	if(!this->available){
+		return false; //reporting to another incident
+	}
+	
+	//reporting to this incident
+	this->available = false;
+	return true;
 }
 
 string MedicalTeam::getType() {
-	throw "Not yet implemented";
+	return "MedicalTeam";
 }

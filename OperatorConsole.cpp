@@ -2,12 +2,21 @@
 #include <iostream>
 
 void OperatorConsole::submit(Command* cmd) {
-	throw "Not yet implemented";
+	history.push_back(cmd);
+	cmd->execute();
 }
 
 void OperatorConsole::cancelLast() {
-	throw "Not yet implemented";
+	if(!history.empty()){
+		Command* cmd = history.back();
+		cmd->undo();
+	}
+	
 }
 
 OperatorConsole::~OperatorConsole() {
+	while(!history.empty()){
+		delete history.back();
+		history.pop_back();
+	}
 }

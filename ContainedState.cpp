@@ -1,21 +1,27 @@
 #include "ContainedState.h"
+#include "ResolvedState.h"
 #include "Incident.h"
 #include <iostream>
 
 // Contained: resolve -> ResolvedState; dispatchUnit and contain are invalid
 
 bool ContainedState::dispatchUnit(Incident* incident) {
-	throw "Not yet implemented";
+	std::cout << "Incident is contained, no need to dispatch unit" << std::endl;
+	return false;
 }
 
 bool ContainedState::contain(Incident* incident) {
-	throw "Not yet implemented";
+	std::cout << "Incident contained" << std::endl;
+	incident->resolve();
+	return true;
 }
 
 bool ContainedState::resolve(Incident* incident) {
-	throw "Not yet implemented";
+	IncidentState* newState = new ResolvedState();
+	incident->setState(newState);
+	return true;
 }
 
 string ContainedState::getName() {
-	throw "Not yet implemented";
+	return "Contained";
 }

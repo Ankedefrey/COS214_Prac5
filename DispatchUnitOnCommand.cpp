@@ -3,14 +3,13 @@
 #include "Incident.h"
 #include <iostream>
 
-DispatchUnitOnCommand::DispatchUnitOnCommand(ResponseUnit* unit, Incident* incident) {
-	throw "Not yet implemented";
+DispatchUnitOnCommand::DispatchUnitOnCommand(ResponseUnit* unit, Incident* incident): unit(unit), incident(incident) {
 }
 
 void DispatchUnitOnCommand::execute() {
-	throw "Not yet implemented";
+	unit->dispatch(incident);
 }
 
 void DispatchUnitOnCommand::undo() {
-	throw "Not yet implemented";
+	unit->recall();
 }

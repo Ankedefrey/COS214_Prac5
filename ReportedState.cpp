@@ -1,21 +1,28 @@
 #include "ReportedState.h"
 #include "Incident.h"
+#include "ActiveState.h"
 #include <iostream>
 
 // Reported: dispatchUnit -> ActiveState; contain and resolve are invalid
 
 bool ReportedState::dispatchUnit(Incident* incident) {
-	throw "Not yet implemented";
+	std::cout << "Incident reported" << std::endl;
+	IncidentState* newState = new ActiveState();
+	incident->setState(newState);
+	incident->dispatchUnit();
+	return true;
 }
 
 bool ReportedState::contain(Incident* incident) {
-	throw "Not yet implemented";
+	std::cout << "Incident cannot be contained yet" << std::endl;
+	return false;
 }
 
 bool ReportedState::resolve(Incident* incident) {
-	throw "Not yet implemented";
+	std::cout << "Incident is not resolved yet" << std::endl;
+	return false;
 }
 
 string ReportedState::getName() {
-	throw "Not yet implemented";
+	return "Reported";
 }

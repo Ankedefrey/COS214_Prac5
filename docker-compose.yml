@@ -1,4 +1,4 @@
-dockerservices:
+services:
   campusguard:
     build: .
     image: campusguard:latest

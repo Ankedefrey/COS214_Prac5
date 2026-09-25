@@ -4,7 +4,9 @@
 #include <iostream>
 
 ResponseUnit::ResponseUnit(string unitID) {
-	throw "Not yet implemented";
+	this->unitID = unitID;
+	this->available = true; //units all free until dispatched
+	this->mediator = nullptr; //not yet registered with coordinator
 }
 
 void ResponseUnit::setMediator(IncidentMediator* i) {
@@ -16,11 +18,16 @@ bool ResponseUnit::isAvailable() {
 }
 
 void ResponseUnit::recall() {
-	throw "Not yet implemented";
+	//dispatch unit done with current incident
+	this->available = true;
 }
 
 void ResponseUnit::reportStatus(UnitEvent event, Incident* incident) {
-	throw "Not yet implemented";
+	//current unit reports to Mediator, and the coordinator (concreteMediator) 
+	//decides what happens next.
+	if (this->mediator != nullptr) {
+        this->mediator->notify(this, event, incident);
+    }
 }
 
 ResponseUnit::~ResponseUnit() {
