@@ -7,7 +7,7 @@ void OperatorConsole::submit(Command* cmd) {
 }
 
 void OperatorConsole::cancelLast() {
-	if(!history.empty()){
+	if(history.empty()){
 		cout << "[Console] Nothing to cancel - no actions in history" << endl;
 		return;
 	}
