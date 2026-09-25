@@ -3,10 +3,13 @@
 #include "ActiveState.h"
 #include <iostream>
 
+using namespace std;
+
+
 // Reported: dispatchUnit -> ActiveState; contain and resolve are invalid
 
 bool ReportedState::dispatchUnit(Incident* incident) {
-	std::cout << "Incident reported" << std::endl;
+	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident reported" << std::endl;
 	IncidentState* newState = new ActiveState();
 	incident->setState(newState);
 	incident->dispatchUnit();
@@ -14,12 +17,12 @@ bool ReportedState::dispatchUnit(Incident* incident) {
 }
 
 bool ReportedState::contain(Incident* incident) {
-	std::cout << "Incident cannot be contained yet" << std::endl;
+	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident cannot be contained yet" << std::endl;
 	return false;
 }
 
 bool ReportedState::resolve(Incident* incident) {
-	std::cout << "Incident is not resolved yet" << std::endl;
+	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident is not resolved yet" << std::endl;
 	return false;
 }
 

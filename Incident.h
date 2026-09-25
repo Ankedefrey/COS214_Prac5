@@ -30,6 +30,8 @@ public:
 
 	string getLocation();
 
+	int getIncidentID() { return incidentID; }
+
 	~Incident();
 };
 

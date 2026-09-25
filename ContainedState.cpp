@@ -6,12 +6,12 @@
 // Contained: resolve -> ResolvedState; dispatchUnit and contain are invalid
 
 bool ContainedState::dispatchUnit(Incident* incident) {
-	std::cout << "Incident is contained, no need to dispatch unit" << std::endl;
+	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident is contained, no need to dispatch unit" << std::endl;
 	return false;
 }
 
 bool ContainedState::contain(Incident* incident) {
-	std::cout << "Incident contained" << std::endl;
+	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident contained" << std::endl;
 	incident->resolve();
 	return true;
 }

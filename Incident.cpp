@@ -14,19 +14,17 @@ Incident::Incident(int id, string type, string location) {
 	this->state = new ReportedState();
 }
 
+//return true returns regardless of state->dispatchUnit(this) so added fix
 bool Incident::dispatchUnit() {
-	state->dispatchUnit(this);
-	return true;
+	return state->dispatchUnit(this);
 }
 
 bool Incident::contain() {
-	state->contain(this);
-	return true;
+	return state->contain(this);
 }
 
 bool Incident::resolve() {
-	state->resolve(this);
-	return true;
+	return state->resolve(this);
 }
 
 void Incident::setState(IncidentState* s) {
@@ -42,6 +40,10 @@ string Incident::getStatus() {
 
 string Incident::getLocation() {
 	return this->location;
+}
+
+int Incident::getIncidentID() {
+	return incidentID;
 }
 
 Incident::~Incident() {
