@@ -21,6 +21,12 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
 			// Sender confirms real emergency and we add Medical team as additional
 			//backup. Not an operator-issued command but mediator driven dispatch
 			//not wrapped in a DispatchUnitOnCommand or added in OPERATORconsole history
+            AreaComponent* area = campus->find(incident->getLocation());
+            if (area != nullptr) {
+                area->lock();
+            }
+            notifier->sendAlert("Shelter in place", incident->getLocation(), true);
+            
             ResponseUnit* backup = findAvailableUnit("MedicalTeam");
             if (backup != nullptr) {
                 backup->dispatch(incident);
@@ -29,17 +35,23 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
             break;
         }
 		//unit on scene is qualified to call that job is done here
-        case HAZARD_CONTAINED:
+        case HAZARD_CONTAINED: {
             incident->contain();
-			recallAll();
+            vector<ResponseUnit*>::iterator it;
+            for (it = this->units.begin(); it != this->units.end(); ++it) {
+                (*it)->recall();
+            }
             break;
-        case FALSE_ALARM:
-			//unit on reports FALSE_ALARM after being ON_SCENE
-			//run the normal transition (Active -> Contained -> Resolved)
+        }
+        case FALSE_ALARM: {
             incident->contain();
             incident->resolve();
-            recallAll()
+            vector<ResponseUnit*>::iterator it;
+            for (it = this->units.begin(); it != this->units.end(); ++it) {
+                (*it)->recall();
+            }
             break;
+        }
     }
 }
 
