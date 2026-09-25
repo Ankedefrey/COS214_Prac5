@@ -7,8 +7,11 @@
 
 #include <iostream>
 
-Incident::Incident(int id, string type, string location): 
-incidentID(id), location(location), type(type) {
+Incident::Incident(int id, string type, string location) {
+	this->incidentID = id;
+	this->type = type;
+	this->location = location;
+	this->state = new ReportedState(); 
 }
 
 bool Incident::dispatchUnit() {
