@@ -93,6 +93,7 @@ int main() {
 	facilities->reportStatus(HAZARD_CONTAINED, spill);
 	cout << "[Main] Incident status: " << spill->getStatus() << endl;
 
+    // demonstrates resolve() is safe to call again on an already-resolved incident
 	spill->resolve();
 	cout << "[Main] Incident status: " << spill->getStatus() << endl;
 
