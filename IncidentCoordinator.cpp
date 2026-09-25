@@ -31,14 +31,14 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
 		//unit on scene is qualified to call that job is done here
         case HAZARD_CONTAINED:
             incident->contain();
-			sender->recall();
+			recallAll();
             break;
         case FALSE_ALARM:
 			//unit on reports FALSE_ALARM after being ON_SCENE
 			//run the normal transition (Active -> Contained -> Resolved)
             incident->contain();
             incident->resolve();
-            sender->recall();
+            recallAll()
             break;
     }
 }
