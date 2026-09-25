@@ -53,6 +53,12 @@ SirenControlAdapter* buildSirens() {
 	return sirens;
 }
 
+void banner(string title) {
+	cout << endl << "==================================================" << endl;
+	cout << " " << title << endl;
+	cout << "==================================================" << endl;
+}
+
 int main() {
     cout << "=== CampusGuard: Emergency Response Coordination ===" <<endl;
 
@@ -60,20 +66,77 @@ int main() {
 	SirenControlAdapter* sirens = buildSirens();
 	NotificationService* notifier = sirens;
 
-    //coordinator, units, registerUnit
-	//console
-	//facade
+    IncidentCoordinator* coordinator = new IncidentCoordinator(campus, notifier);
 
-	// ---------- Scenario 1: Chemical spill ----------
-	// TODO once Facade + Mediator exist
+	ResponseUnit* security = new SecurityTeam("SEC-01");
+	ResponseUnit* medical = new MedicalTeam("MED-01");
+	ResponseUnit* facilities = new FacilityStaff("FAC-01");
+	coordinator->registerUnit(security);
+	coordinator->registerUnit(medical);
+	coordinator->registerUnit(facilities);
 
-	// ---------- Scenario 2: IT Building threat ----------
-	// TODO once Command + Mediator exist
+    OperatorConsole* console = new OperatorConsole();
+	EmergencyFacade* facade = new EmergencyFacade(console, coordinator, campus, notifier);
 
-	// TODO: delete facade, console, coordinator, units first
 
-    delete notifier; // virtual destructor -> ~SirenControlAdapter
-	delete campus; // recursively deletes every zone and room
+	banner("SCENARIO 1: Chemical spill on Chemistry Floor 2");
 
-    return 0;
+	Incident* spill = facade->initiateEvacuationProtocol("Chemistry Floor 2", "Chemical spill");
+	cout << "[Main] Incident status: " << spill->getStatus() << endl;
+
+	// Security arrives on scene -> Mediator moves the incident to Active
+	security->reportStatus(ON_SCENE, spill);
+	cout << "[Main] Incident status: " << spill->getStatus() << endl;
+
+	// Facilities handle the hazard and report it contained
+	facilities->dispatch(spill);
+	facilities->reportStatus(HAZARD_CONTAINED, spill);
+	cout << "[Main] Incident status: " << spill->getStatus() << endl;
+
+	spill->resolve();
+	cout << "[Main] Incident status: " << spill->getStatus() << endl;
+
+	// ---------- Scenario 2: Threat reported in the IT Building ----------
+	// Facade -> Composite lockdown, Adapter, Command + undo, Mediator coordination,
+	// State refusal, and the legacy siren failure.
+	banner("SCENARIO 2: Threat reported in the IT Building");
+
+	Incident* threat = facade->triggerLockdownProtocol("IT Building");
+
+	ResponseUnit* sec = coordinator->findAvailableUnit("SecurityTeam");
+	console->submit(new DispatchUnitOnCommand(security, threat));
+	cout << "[Main] Incident status: " << threat->getStatus() << endl;
+
+	// Security confirms the threat -> the Mediator brings in Medical
+	sec->reportStatus(THREAT_CONFIRMED, threat);
+
+	// FAILURE CASE 1: the Server Room siren panel is offline (legacy error 17)
+	banner("FAILURE CASE: legacy siren panel offline");
+	console->submit(new IssueAlertOnCommand(notifier, "Shelter in place", "Server Room"));
+
+	// FAILURE CASE 2: an unmapped area has no siren zone at all
+	console->submit(new IssueAlertOnCommand(notifier, "Test alert", "Sports Centre"));
+
+	// It turns out to be a false alarm: undo the last action, then stand down
+	banner("FALSE ALARM: cancelling the last action");
+	console->cancelLast();
+	sec->reportStatus(FALSE_ALARM, threat);
+	cout << "[Main] Incident status: " << threat->getStatus() << endl;
+
+	// FAILURE CASE 3: State refuses a dispatch to a resolved incident
+	banner("INVALID OPERATION: dispatch to a resolved incident");
+	threat->dispatchUnit();
+
+	// ---------- Clean up ----------
+	banner("Shutting down");
+	delete facade;        // owns nothing
+	delete console;       // deletes its command history
+	delete coordinator;   // deletes the incidents
+	delete security;
+	delete medical;
+	delete facilities;
+	delete notifier;      // virtual destructor -> ~SirenControlAdapter -> siren unit
+	delete campus;        // recursively deletes every zone and room
+
+	return 0;
 }

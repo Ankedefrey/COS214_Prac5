@@ -4,8 +4,14 @@ EXE = campusguard
 
 SRCS  = main.cpp \
         AreaComponent.cpp Zone.cpp Room.cpp \
-        NotificationService.cpp SirenControlAdapter.cpp SirenControlUnit.cpp
-
+        NotificationService.cpp SirenControlAdapter.cpp SirenControlUnit.cpp \
+        Command.cpp OperatorConsole.cpp \
+        DispatchUnitOnCommand.cpp LockAreaOnCommand.cpp IssueAlertOnCommand.cpp \
+        Incident.cpp IncidentState.cpp \
+        ReportedState.cpp ActiveState.cpp ContainedState.cpp ResolvedState.cpp \
+        IncidentMediator.cpp IncidentCoordinator.cpp \
+        ResponseUnit.cpp SecurityTeam.cpp MedicalTeam.cpp FacilityStaff.cpp \
+        EmergencyFacade.cpp
 all:
 	$(CXX) $(CFLAGS) $(SRCS) -o $(EXE)
 
