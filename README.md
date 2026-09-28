@@ -8,7 +8,7 @@ CampusGuard coordinates a campus emergency from the moment an incident is report
 
 | Name            | Student number |
 |-----------------|----------------|
-| Anke de Frey    | uXXXXXXXX      |
+| Anke de Frey    | u24611400     |
 | Hafani Ramagoma | u23605091      |
 |                 | uXXXXXXXX      |
 
