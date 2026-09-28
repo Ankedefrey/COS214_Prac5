@@ -5,6 +5,21 @@
 #include "NotificationService.h"
 #include <iostream>
 
+//helper: readable name for the event being coordinated
+static string eventName(UnitEvent event) {
+	switch (event) {
+		case ON_SCENE:
+            return "ON_SCENE";
+		case THREAT_CONFIRMED:
+            return "THREAT_CONFIRMED";
+		case HAZARD_CONTAINED:
+            return "HAZARD_CONTAINED";
+		case FALSE_ALARM:
+            return "FALSE_ALARM";
+	}
+	return "UNKNOWN";
+}
+
 IncidentCoordinator::IncidentCoordinator(AreaComponent* campus, NotificationService* notifier) {
 	this->campus = campus;
 	this->notifier = notifier;
@@ -12,6 +27,10 @@ IncidentCoordinator::IncidentCoordinator(AreaComponent* campus, NotificationServ
 
 //unit calls this whenever something happens to it and forwards event and lets coordinator sort it out
 void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident* incident) {
+    
+    cout << "[Coordinator] " << eventName(event) << " reported by " << sender->getType()
+        << " for incident #" << incident->getIncidentID() << endl;
+
     switch (event) {
         case ON_SCENE:
 			// Unit has physically arrived -> incident moves Reported -> Active.
@@ -21,11 +40,15 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
 			// Sender confirms real emergency and we add Medical team as additional
 			//backup. Not an operator-issued command but mediator driven dispatch
 			//not wrapped in a DispatchUnitOnCommand or added in OPERATORconsole history
+
+            cout << "[Coordinator]   -> lock down " << incident->getLocation() << endl;
             AreaComponent* area = campus->find(incident->getLocation());
             if (area != nullptr) {
                 area->lock();
             }
+            cout << "[Coordinator]   -> shelter-in-place alert" << endl;
             notifier->sendAlert("Shelter in place", incident->getLocation(), true);
+            cout << "[Coordinator]   -> bring in medical backup" << endl;
             
             ResponseUnit* backup = findAvailableUnit("MedicalTeam");
             if (backup != nullptr) {
@@ -36,6 +59,7 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
 		//unit on scene is qualified to call that job is done here
         case HAZARD_CONTAINED: {
             incident->contain();
+            cout << "[Coordinator]   -> recalling all units" << endl;
             vector<ResponseUnit*>::iterator it;
             for (it = this->units.begin(); it != this->units.end(); ++it) {
                 (*it)->recall();
@@ -45,6 +69,14 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
         case FALSE_ALARM: {
             incident->contain();
             incident->resolve();
+
+            cout << "[Coordinator]   -> lift lockdown on " << incident->getLocation() << endl;
+            AreaComponent* cleared = campus->find(incident->getLocation());
+            if (cleared != nullptr) {
+                cleared->unlock();
+            }
+
+            cout << "[Coordinator]   -> recalling all units" << endl;
             vector<ResponseUnit*>::iterator it;
             for (it = this->units.begin(); it != this->units.end(); ++it) {
                 (*it)->recall();
