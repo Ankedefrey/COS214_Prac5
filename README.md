@@ -6,11 +6,11 @@ CampusGuard coordinates a campus emergency from the moment an incident is report
 
 ## Team
 
-| Name | Student number |
-|------|----------------|
-| Anke de Frey | uXXXXXXXX |
-|   | uXXXXXXXX |
-|  | uXXXXXXXX |
+| Name            | Student number |
+|-----------------|----------------|
+| Anke de Frey    | uXXXXXXXX      |
+| Hafani Ramagoma | u23605091      |
+|                 | uXXXXXXXX      |
 
 ## Run with Docker
 
