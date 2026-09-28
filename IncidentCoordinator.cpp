@@ -29,8 +29,7 @@ void IncidentCoordinator::notify(ResponseUnit* sender, UnitEvent event, Incident
             
             ResponseUnit* backup = findAvailableUnit("MedicalTeam");
             if (backup != nullptr) {
-                backup->dispatch(incident);
-                incident->dispatchUnit();  // "extra units" case from ActiveState
+                backup->dispatch(incident); //the unit asks the incident's state itself
             }
             break;
         }
