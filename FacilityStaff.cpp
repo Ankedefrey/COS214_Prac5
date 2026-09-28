@@ -15,6 +15,7 @@ bool FacilityStaff::dispatch(Incident* incident) {
 	if (!incident->dispatchUnit()) {
 		cout << "[Facilities] " << this->unitID << " dispatch REFUSED by incident state" << endl;
 		return false;
+	}
 	
 	//reporting to this incident
 	this->available = false;
