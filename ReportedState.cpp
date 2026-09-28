@@ -9,10 +9,8 @@ using namespace std;
 // Reported: dispatchUnit -> ActiveState; contain and resolve are invalid
 
 bool ReportedState::dispatchUnit(Incident* incident) {
-	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident reported" << std::endl;
-	IncidentState* newState = new ActiveState();
-	incident->setState(newState);
-	incident->dispatchUnit();
+	cout << "[Incident #" << incident->getIncidentID() << "] Reported -> Active" << endl;
+	incident->setState(new ActiveState());
 	return true;
 }
 

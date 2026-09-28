@@ -11,9 +11,8 @@ bool ActiveState::dispatchUnit(Incident* incident) {
 }
 
 bool ActiveState::contain(Incident* incident) {
-	IncidentState* newState = new ContainedState();
-	incident->setState(newState);
-	incident->contain();
+	cout << "[Incident #" << incident->getIncidentID() << "] Active -> Contained" << endl;
+	incident->setState(new ContainedState());
 	return true;
 }
 

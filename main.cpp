@@ -126,7 +126,7 @@ int main() {
 
 	// FAILURE CASE 3: State refuses a dispatch to a resolved incident
 	banner("INVALID OPERATION: dispatch to a resolved incident");
-	threat->dispatchUnit();
+	console->submit(new DispatchUnitOnCommand(medical, threat));
 
 	// ---------- Clean up ----------
 	banner("Shutting down");

@@ -11,14 +11,13 @@ bool ContainedState::dispatchUnit(Incident* incident) {
 }
 
 bool ContainedState::contain(Incident* incident) {
-	std::cout << "[Incident #" << incident->getIncidentID() << "] Incident contained" << std::endl;
-	incident->resolve();
-	return true;
+	cout << "[Incident #" << incident->getIncidentID() << "] Incident is already contained" << endl;
+	return false;
 }
 
 bool ContainedState::resolve(Incident* incident) {
-	IncidentState* newState = new ResolvedState();
-	incident->setState(newState);
+	cout << "[Incident #" << incident->getIncidentID() << "] Contained -> Resolved" << endl;
+	incident->setState(new ResolvedState());
 	return true;
 }
 
