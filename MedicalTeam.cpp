@@ -19,6 +19,8 @@ bool MedicalTeam::dispatch(Incident* incident){
 	
 	//reporting to this incident
 	this->available = false;
+	cout << "[Medical] " << this->unitID << " dispatched to " << incident->getLocation() << endl;
+	
 	return true;
 }
 

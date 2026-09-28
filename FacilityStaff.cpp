@@ -19,6 +19,7 @@ bool FacilityStaff::dispatch(Incident* incident) {
 	
 	//reporting to this incident
 	this->available = false;
+	cout << "[Facilities] " << this->unitID << " dispatched to " << incident->getLocation() << endl;
 	return true;
 }
 
